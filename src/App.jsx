@@ -3,7 +3,7 @@ import Cart from "src/pages/Cart";
 import CheckOut from "src/pages/CheckOut";
 import ProductDetails from "src/pages/ProductDetails";
 
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import axios from "axios";
 
 import "./App.css";
@@ -60,7 +60,7 @@ const App = () => {
         setLoading(true);
         try {
           const obj = await axios.get(process.env.REACT_APP_API_URL);
-          const data = await obj.json();
+          const data = await obj.data;
           localStorage.setItem("data", JSON.stringify(data.products));
           setData(data.products);
         } catch (error) {
@@ -126,7 +126,6 @@ const App = () => {
           path={routes.products.orderSuccess}
           render={() => <OrderSuccess />}
         />
-        <Redirect exact from="/" to="/products" />
         <Route component={PageNotFound} path="*" />
       </Switch>
       <ToastContainer />
