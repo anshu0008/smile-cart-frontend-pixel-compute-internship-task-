@@ -31,7 +31,6 @@ const App = () => {
   });
 
   const notify = (notice, name) => {
-    console.log(notice, name);
     if (notice === "success") {
       toast.success(`${name.slice(0, -1)} added to cart Successfully`, {
         position: "bottom-left",
@@ -60,9 +59,7 @@ const App = () => {
       if (Data.length === 0) {
         setLoading(true);
         try {
-          const obj = await axios.get(
-            "https://smile-cart-backend-staging.neetodeployapp.com/products?page_size=50&"
-          );
+          const obj = await axios.get(process.env.REACT_APP_API_URL);
           const data = await obj.json();
           localStorage.setItem("data", JSON.stringify(data.products));
           setData(data.products);
